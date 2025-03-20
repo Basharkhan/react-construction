@@ -12,7 +12,7 @@ const ContactUs = () => {
           subtitle=""
           title="Contact Us"
           text="We excel at transforming visions into reality
-              <br /> through outatanding craftmanship and knowledge"
+               through outatanding craftmanship and knowledge"
         />
 
         <section className="section-9 py-5">
