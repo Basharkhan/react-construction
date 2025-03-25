@@ -10,10 +10,10 @@ const Sidebar = () => {
         <h4>Sidebar</h4>
         <ul>
           <li>
-            <a href="#">Dashboard</a>
+            <a href="/admin/dashboard">Dashboard</a>
           </li>
           <li>
-            <a href="#">Services</a>
+            <a href="/admin/services">Services</a>
           </li>
           <li>
             <a href="#">Projects</a>
