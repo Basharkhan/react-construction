@@ -13,6 +13,7 @@ import Dashboard from "./components/backend/Dashboard";
 import RequiredAuth from "./components/frontend/RequiredAuth";
 import { default as ShowServices } from "./components/services/Show";
 import { default as CreateService } from "./components/services/Create";
+import { default as EditService } from "./components/services/Edit";
 
 function App() {
   return (
@@ -49,6 +50,15 @@ function App() {
             element={
               <RequiredAuth>
                 <CreateService />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/services/edit/:id"
+            element={
+              <RequiredAuth>
+                <EditService />
               </RequiredAuth>
             }
           />

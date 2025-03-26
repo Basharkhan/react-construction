@@ -1,18 +1,20 @@
 import Header from "../common/Header";
 import Sidebar from "../frontend/Sidebar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../common/Footer";
+import JoditEditor from "jodit-react";
 import { useForm } from "react-hook-form";
-import { apiUrl, token } from "../common/http";
+import { apiUrl, fileUrl, token } from "../common/http";
 import { toast } from "react-toastify";
 import React, { useState, useRef, useMemo } from "react";
-import JoditEditor from "jodit-react";
 
-const Create = ({ placeholder }) => {
+const Edit = ({ placeholder }) => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const [imageId, setImageId] = useState(null);
+  const [service, setService] = useState(null);
+  const params = useParams();
 
   const config = useMemo(
     () => ({
@@ -27,28 +29,53 @@ const Create = ({ placeholder }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: async () => {
+      const res = await fetch(apiUrl + "services/" + params.id, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token()}`,
+        },
+      });
+      const result = await res.json();
+      setContent(result.data.content);
+      setService(result.data);
+      console.log(result);
+
+      return {
+        title: result.data.title,
+        slug: result.data.slug,
+        short_desc: result.data.short_desc,
+        status: result.data.status,
+      };
+    },
+  });
+
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const newData = { ...data, content: content, imageId: imageId };
-    const res = await fetch(apiUrl + "services", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token()}`,
-      },
-      body: JSON.stringify(newData),
-    });
-    const result = await res.json();
+    console.log(newData);
 
-    if (result.status == true) {
-      navigate("/admin/services");
-      toast.success(result.message);
-    } else {
-      toast.error(result.message);
-    }
+    // const res = await fetch(apiUrl + "services", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //     Authorization: `Bearer ${token()}`,
+    //   },
+    //   body: JSON.stringify(newData),
+    // });
+    // const result = await res.json();
+
+    // if (result.status == true) {
+    //   navigate("/admin/services");
+    //   toast.success(result.message);
+    // } else {
+    //   toast.error(result.message);
+    // }
   };
 
   const handleFile = async (e) => {
@@ -94,7 +121,7 @@ const Create = ({ placeholder }) => {
                 <div className="card shadow border-0">
                   <div className="card-body p-4">
                     <div className="d-flex justify-content-between">
-                      <h5>Services / Create</h5>
+                      <h5>Services / Update</h5>
                       <Link to="/admin/services" className="btn btn-primary">
                         Back
                       </Link>
@@ -178,6 +205,17 @@ const Create = ({ placeholder }) => {
                           className="form-control"
                         />
                       </div>
+                      <div>
+                        {service?.image && (
+                          <img
+                            src={
+                              fileUrl +
+                              "uploads/services/small/" +
+                              service.image
+                            }
+                          />
+                        )}
+                      </div>
 
                       <div className="mb-3">
                         <label htmlFor="" className="form-label">
@@ -196,7 +234,7 @@ const Create = ({ placeholder }) => {
                         disabled={isSubmitButtonDisabled}
                         className="btn btn-primary"
                       >
-                        Submit
+                        Update
                       </button>
                     </form>
                   </div>
@@ -211,4 +249,4 @@ const Create = ({ placeholder }) => {
   );
 };
 
-export default Create;
+export default Edit;

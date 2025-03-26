@@ -73,9 +73,12 @@ const Show = () => {
                                   {service.status === 1 ? "Acitve" : "Block"}
                                 </td>
                                 <td>
-                                  <a href="#" className="btn blog-btn">
+                                  <Link
+                                    to={`edit/${service.id}`}
+                                    className="btn blog-btn"
+                                  >
                                     Edit
-                                  </a>
+                                  </Link>
                                   <a href="#" className="ms-2 btn blog-btn">
                                     Delete
                                   </a>
