@@ -19,7 +19,7 @@ const Edit = ({ placeholder }) => {
   const config = useMemo(
     () => ({
       readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: placeholder || "Content",
+      placeholder: placeholder || "",
     }),
     [placeholder]
   );
@@ -59,23 +59,23 @@ const Edit = ({ placeholder }) => {
     const newData = { ...data, content: content, imageId: imageId };
     console.log(newData);
 
-    // const res = await fetch(apiUrl + "services", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     Authorization: `Bearer ${token()}`,
-    //   },
-    //   body: JSON.stringify(newData),
-    // });
-    // const result = await res.json();
+    const res = await fetch(apiUrl + "services/" + params.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token()}`,
+      },
+      body: JSON.stringify(newData),
+    });
+    const result = await res.json();
 
-    // if (result.status == true) {
-    //   navigate("/admin/services");
-    //   toast.success(result.message);
-    // } else {
-    //   toast.error(result.message);
-    // }
+    if (result.status == true) {
+      navigate("/admin/services");
+      toast.success(result.message);
+    } else {
+      toast.error(result.message);
+    }
   };
 
   const handleFile = async (e) => {

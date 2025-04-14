@@ -32,6 +32,8 @@ const Create = ({ placeholder }) => {
 
   const onSubmit = async (data) => {
     const newData = { ...data, content: content, imageId: imageId };
+    console.log(newData);
+
     const res = await fetch(apiUrl + "services", {
       method: "POST",
       headers: {
@@ -56,8 +58,6 @@ const Create = ({ placeholder }) => {
     const file = e.target.files[0];
     formData.append("image", file);
 
-    console.log(formData);
-
     await fetch(apiUrl + "temp-images", {
       method: "POST",
       headers: {
@@ -68,12 +68,9 @@ const Create = ({ placeholder }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         if (result.status == false) {
           toast.error(result.errors.image[0]);
         } else {
-          console.log(result.data.id);
-
           setImageId(result.data.id);
           toast.success(result.message);
         }
