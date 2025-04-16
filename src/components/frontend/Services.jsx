@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import Hero from "../common/Hero";
 import ServiceImage1 from "../../assets/img/construction1.jpg";
+import { apiUrl, fileUrl } from "../common/http";
 
 const Services = () => {
+  const [services, setServices] = useState([]);
+
+  const fetchAllServices = async () => {
+    const res = await fetch(apiUrl + "get-services", {
+      method: "GET",
+    });
+    const result = await res.json();
+    setServices(result.data);
+    console.log(result);
+  };
+
+  useEffect(() => {
+    fetchAllServices();
+  }, []);
+
   return (
     <>
       <Header />
@@ -26,126 +42,32 @@ const Services = () => {
               </p>
             </div>
             <div className="row">
-              <div className="col-md-4 col-lg-4">
-                <div className="item">
-                  <div className="service-image">
-                    <img src={ServiceImage1} className="w-100" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Titan Construction</h3>
+              {services &&
+                services.map((service) => {
+                  return (
+                    <div className="col-md-4 col-lg-4" key={service.id}>
+                      <div className="item">
+                        <div className="service-image">
+                          <img
+                            src={`${fileUrl}uploads/services/small/${service.image}`}
+                            className="w-100"
+                          />
+                        </div>
+                        <div className="service-body">
+                          <div className="service-title">
+                            <h3>{service.title}</h3>
+                          </div>
+                          <div className="service-content">
+                            {service.short_desc}
+                          </div>
+                          <a href="#" className="btn btn-primary">
+                            Read More
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <div className="service-content">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sapiente ullam placeat, molestiae adipisci vitae minus
-                      expedita autem libero suscipit molestias.
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-4">
-                <div className="item">
-                  <div className="service-image">
-                    <img src={ServiceImage1} className="w-100" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Titan Construction</h3>
-                    </div>
-                    <div className="service-content">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sapiente ullam placeat, molestiae adipisci vitae minus
-                      expedita autem libero suscipit molestias.
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-4">
-                <div className="item">
-                  <div className="service-image">
-                    <img src={ServiceImage1} className="w-100" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Titan Construction</h3>
-                    </div>
-                    <div className="service-content">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sapiente ullam placeat, molestiae adipisci vitae minus
-                      expedita autem libero suscipit molestias.
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-4">
-                <div className="item">
-                  <div className="service-image">
-                    <img src={ServiceImage1} className="w-100" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Titan Construction</h3>
-                    </div>
-                    <div className="service-content">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sapiente ullam placeat, molestiae adipisci vitae minus
-                      expedita autem libero suscipit molestias.
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-4">
-                <div className="item">
-                  <div className="service-image">
-                    <img src={ServiceImage1} className="w-100" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Titan Construction</h3>
-                    </div>
-                    <div className="service-content">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sapiente ullam placeat, molestiae adipisci vitae minus
-                      expedita autem libero suscipit molestias.
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-4">
-                <div className="item">
-                  <div className="service-image">
-                    <img src={ServiceImage1} className="w-100" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Titan Construction</h3>
-                    </div>
-                    <div className="service-content">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sapiente ullam placeat, molestiae adipisci vitae minus
-                      expedita autem libero suscipit molestias.
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
+                  );
+                })}
             </div>
           </div>
         </section>
