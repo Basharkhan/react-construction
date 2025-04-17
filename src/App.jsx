@@ -19,6 +19,10 @@ import { default as ShowProjects } from "./components/backend/projects/Show";
 import { default as CreateProject } from "./components/backend/projects/Create";
 import { default as EditProject } from "./components/backend/projects/Edit";
 
+import { default as ShowArticles } from "./components/backend/articles/Show";
+import { default as CreateArticle } from "./components/backend/articles/Create";
+import { default as EditArticle } from "./components/backend/articles/Edit";
+
 function App() {
   return (
     <>
@@ -90,6 +94,24 @@ function App() {
             element={
               <RequiredAuth>
                 <EditProject />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/articles"
+            element={
+              <RequiredAuth>
+                <ShowArticles />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/articles/create"
+            element={
+              <RequiredAuth>
+                <CreateArticle />
               </RequiredAuth>
             }
           />

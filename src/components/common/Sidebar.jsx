@@ -20,7 +20,7 @@ const Sidebar = () => {
             <Link to="/admin/projects">Projects</Link>
           </li>
           <li>
-            <a href="#">Articles</a>
+            <Link to="/admin/articles">Articles</Link>
           </li>
           <li>
             <button onClick={logout} className="btn blog-btn mt-4">
