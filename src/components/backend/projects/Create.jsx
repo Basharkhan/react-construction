@@ -1,9 +1,9 @@
-import Header from "../common/Header";
-import Sidebar from "../frontend/Sidebar";
+import Header from "../../common/Header";
+import Sidebar from "../../common/Sidebar";
+import Footer from "../../common/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../common/Footer";
 import { useForm } from "react-hook-form";
-import { apiUrl, token } from "../common/http";
+import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 import React, { useState, useRef, useMemo } from "react";
 import JoditEditor from "jodit-react";
@@ -34,7 +34,7 @@ const Create = ({ placeholder }) => {
     const newData = { ...data, content: content, imageId: imageId };
     console.log(newData);
 
-    const res = await fetch(apiUrl + "services", {
+    const res = await fetch(apiUrl + "projects", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const Create = ({ placeholder }) => {
     const result = await res.json();
 
     if (result.status == true) {
-      navigate("/admin/services");
+      navigate("/admin/projects");
       toast.success(result.message);
     } else {
       toast.error(result.message);
@@ -54,6 +54,7 @@ const Create = ({ placeholder }) => {
   };
 
   const handleFile = async (e) => {
+    setIsSubmitButtonDisabled(true);
     const formData = new FormData();
     const file = e.target.files[0];
     formData.append("image", file);
@@ -68,6 +69,7 @@ const Create = ({ placeholder }) => {
     })
       .then((response) => response.json())
       .then((result) => {
+        setIsSubmitButtonDisabled(false);
         if (result.status == false) {
           toast.error(result.errors.image[0]);
         } else {
@@ -91,7 +93,7 @@ const Create = ({ placeholder }) => {
                 <div className="card shadow border-0">
                   <div className="card-body p-4">
                     <div className="d-flex justify-content-between">
-                      <h5>Services / Create</h5>
+                      <h5>Projects / Create</h5>
                       <Link to="/admin/services" className="btn btn-primary">
                         Back
                       </Link>
@@ -138,6 +140,73 @@ const Create = ({ placeholder }) => {
                             {errors.slug.message}
                           </p>
                         )}
+                      </div>
+
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="mb-3">
+                            <label htmlFor="" className="form-label">
+                              Location
+                            </label>
+                            <input
+                              type="text"
+                              className={`form-control`}
+                              {...register("location")}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <label htmlFor="" className="form-label">
+                            Construction Type
+                          </label>
+                          <select
+                            className="form-control"
+                            {...register("construction_type")}
+                          >
+                            <option value="Residential Construction">
+                              Residential Construction
+                            </option>
+                            <option value="Commercial Construction">
+                              Commercial Construction
+                            </option>
+                            <option value="Industrial Construction">
+                              Industrial Construction
+                            </option>
+                            <option value="Infrastucture Construction">
+                              Infrastucture Construction
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="mb-3">
+                            <label htmlFor="" className="form-label">
+                              Sector
+                            </label>
+                            <select
+                              className="form-control"
+                              {...register("sector")}
+                            >
+                              <option value="Health">Health</option>
+                              <option value="Education">Education</option>
+                              <option value="Corporate">Corporate</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <label htmlFor="" className="form-label">
+                            Status
+                          </label>
+                          <select
+                            className="form-control"
+                            {...register("status")}
+                          >
+                            <option value="1">Active</option>
+                            <option value="0">Block</option>
+                          </select>
+                        </div>
                       </div>
 
                       <div className="mb-3">

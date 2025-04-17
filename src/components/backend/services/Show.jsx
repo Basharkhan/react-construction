@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Header from "../common/Header";
-import Sidebar from "../frontend/Sidebar";
-import Footer from "../common/Footer";
-import { apiUrl, token } from "../common/http";
+import Header from "../../common/Header";
+import Sidebar from "../../common/Sidebar";
+import Footer from "../../common/Footer";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { apiUrl, token } from "../../common/http";
 
 const Show = () => {
   const [services, setServices] = useState([]);

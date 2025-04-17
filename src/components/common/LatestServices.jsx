@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ServiceImage1 from "../../assets/img/construction1.jpg";
 import { apiUrl, fileUrl } from "../common/http";
 
 const LatestServices = () => {

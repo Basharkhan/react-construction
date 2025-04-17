@@ -11,9 +11,13 @@ import Login from "./components/backend/Login";
 import { ToastContainer, toast } from "react-toastify";
 import Dashboard from "./components/backend/Dashboard";
 import RequiredAuth from "./components/frontend/RequiredAuth";
-import { default as ShowServices } from "./components/services/Show";
-import { default as CreateService } from "./components/services/Create";
-import { default as EditService } from "./components/services/Edit";
+import { default as ShowServices } from "./components/backend/services/Show";
+import { default as CreateService } from "./components/backend/services/Create";
+import { default as EditService } from "./components/backend/services/Edit";
+
+import { default as ShowProjects } from "./components/backend/projects/Show";
+import { default as CreateProject } from "./components/backend/projects/Create";
+import { default as EditProject } from "./components/backend/projects/Edit";
 
 function App() {
   return (
@@ -59,6 +63,33 @@ function App() {
             element={
               <RequiredAuth>
                 <EditService />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/projects"
+            element={
+              <RequiredAuth>
+                <ShowProjects />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/projects/create"
+            element={
+              <RequiredAuth>
+                <CreateProject />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/projects/edit/:id"
+            element={
+              <RequiredAuth>
+                <EditProject />
               </RequiredAuth>
             }
           />

@@ -1,25 +1,23 @@
-import Header from "../common/Header";
-import Sidebar from "../frontend/Sidebar";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Footer from "../common/Footer";
-import JoditEditor from "jodit-react";
+import Header from "../../common/Header";
+import Sidebar from "../../common/Sidebar";
+import Footer from "../../common/Footer";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { apiUrl, fileUrl, token } from "../common/http";
+import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 import React, { useState, useRef, useMemo } from "react";
+import JoditEditor from "jodit-react";
 
-const Edit = ({ placeholder }) => {
+const Create = ({ placeholder }) => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const [imageId, setImageId] = useState(null);
-  const [service, setService] = useState(null);
-  const params = useParams();
 
   const config = useMemo(
     () => ({
       readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: placeholder || "",
+      placeholder: placeholder || "Content",
     }),
     [placeholder]
   );
@@ -29,38 +27,15 @@ const Edit = ({ placeholder }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({
-    defaultValues: async () => {
-      const res = await fetch(apiUrl + "services/" + params.id, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token()}`,
-        },
-      });
-      const result = await res.json();
-      setContent(result.data.content);
-      setService(result.data);
-      console.log(result);
-
-      return {
-        title: result.data.title,
-        slug: result.data.slug,
-        short_desc: result.data.short_desc,
-        status: result.data.status,
-      };
-    },
-  });
-
+  } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const newData = { ...data, content: content, imageId: imageId };
     console.log(newData);
 
-    const res = await fetch(apiUrl + "services/" + params.id, {
-      method: "PUT",
+    const res = await fetch(apiUrl + "services", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -79,11 +54,10 @@ const Edit = ({ placeholder }) => {
   };
 
   const handleFile = async (e) => {
+    setIsSubmitButtonDisabled(true);
     const formData = new FormData();
     const file = e.target.files[0];
     formData.append("image", file);
-
-    console.log(formData);
 
     await fetch(apiUrl + "temp-images", {
       method: "POST",
@@ -95,12 +69,10 @@ const Edit = ({ placeholder }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        setIsSubmitButtonDisabled(false);
         if (result.status == false) {
           toast.error(result.errors.image[0]);
         } else {
-          console.log(result.data.id);
-
           setImageId(result.data.id);
           toast.success(result.message);
         }
@@ -121,7 +93,7 @@ const Edit = ({ placeholder }) => {
                 <div className="card shadow border-0">
                   <div className="card-body p-4">
                     <div className="d-flex justify-content-between">
-                      <h5>Services / Update</h5>
+                      <h5>Services / Create</h5>
                       <Link to="/admin/services" className="btn btn-primary">
                         Back
                       </Link>
@@ -205,17 +177,6 @@ const Edit = ({ placeholder }) => {
                           className="form-control"
                         />
                       </div>
-                      <div>
-                        {service?.image && (
-                          <img
-                            src={
-                              fileUrl +
-                              "uploads/services/small/" +
-                              service.image
-                            }
-                          />
-                        )}
-                      </div>
 
                       <div className="mb-3">
                         <label htmlFor="" className="form-label">
@@ -234,7 +195,7 @@ const Edit = ({ placeholder }) => {
                         disabled={isSubmitButtonDisabled}
                         className="btn btn-primary"
                       >
-                        Update
+                        Submit
                       </button>
                     </form>
                   </div>
@@ -249,4 +210,4 @@ const Edit = ({ placeholder }) => {
   );
 };
 
-export default Edit;
+export default Create;
