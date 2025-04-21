@@ -6,7 +6,6 @@ import Icon1 from "../../assets/img/icon-1.svg";
 import Icon2 from "../../assets/img/icon-2.svg";
 import Icon3 from "../../assets/img/icon-3.svg";
 import AvatarImg from "../../assets/img/author-2.jpg";
-import BlogImg from "../../assets/img/construction2.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { FaStar } from "react-icons/fa";
@@ -15,6 +14,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import About from "../common/About";
 import LatestProjects from "../common/LatestProjects";
+import LatestArticles from "../common/LatestArticles";
 
 const Home = () => {
   return (
@@ -258,72 +258,7 @@ const Home = () => {
         </section>
 
         {/* blog section */}
-        <section className="section-6 bg-light">
-          <div className="container py-5">
-            <div className="section-header text-center">
-              <span>Blog & News</span>
-              <h2>Articles and blog posts</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Recusandae illo, impedit nulla facere ipsa quae! Repudiandae
-                delectus voluptatibus quasi minima?
-              </p>
-            </div>
-            <div className="row">
-              <div className="col-md-4">
-                <div className="card shadow border-0">
-                  <div className="card-img-top">
-                    <img src={BlogImg} className="w-100" />
-                  </div>
-                  <div className="card-body p-5">
-                    <div>
-                      <a href="#" className="title">
-                        Dummy blog title
-                      </a>
-                    </div>
-                    <a href="#" className="btn blog-btn">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card shadow border-0">
-                  <div className="card-img-top">
-                    <img src={BlogImg} className="w-100" />
-                  </div>
-                  <div className="card-body p-5">
-                    <div>
-                      <a href="#" className="title">
-                        Dummy blog title
-                      </a>
-                    </div>
-                    <a href="#" className="btn blog-btn">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card shadow border-0">
-                  <div className="card-img-top">
-                    <img src={BlogImg} className="w-100" />
-                  </div>
-                  <div className="card-body p-5">
-                    <div>
-                      <a href="#" className="title">
-                        Dummy blog title
-                      </a>
-                    </div>
-                    <a href="#" className="btn blog-btn">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <LatestArticles />
       </main>
       <Footer />
     </>

@@ -23,6 +23,10 @@ import { default as ShowArticles } from "./components/backend/articles/Show";
 import { default as CreateArticle } from "./components/backend/articles/Create";
 import { default as EditArticle } from "./components/backend/articles/Edit";
 
+import { default as ShowTestimonials } from "./components/backend/testimonials/Show";
+import { default as CreateTestimonials } from "./components/backend/testimonials/Create";
+import { default as EditTestimonials } from "./components/backend/testimonials/Edit";
+
 function App() {
   return (
     <>
@@ -112,6 +116,40 @@ function App() {
             element={
               <RequiredAuth>
                 <CreateArticle />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/articles/edit/:id"
+            element={
+              <RequiredAuth>
+                <EditArticle />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/testimonials"
+            element={
+              <RequiredAuth>
+                <ShowTestimonials />
+              </RequiredAuth>
+            }
+          />
+          <Route
+            path="/admin/testimonials/create"
+            element={
+              <RequiredAuth>
+                <CreateTestimonials />
+              </RequiredAuth>
+            }
+          />
+          <Route
+            path="/admin/testimonials/edit/:id"
+            element={
+              <RequiredAuth>
+                <EditTestimonials />
               </RequiredAuth>
             }
           />

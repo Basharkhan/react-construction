@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import Hero from "../common/Hero";
-import BlogImg from "../../assets/img/construction2.jpg";
+import { apiUrl, fileUrl } from "../common/http";
 
 const Blogs = () => {
+  const [articles, setArticles] = useState([]);
+
+  const fetchArticles = async () => {
+    const res = await fetch(apiUrl + "get-articles", {
+      method: "GET",
+    });
+    const result = await res.json();
+    setArticles(result.data);
+    console.log(result);
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
   return (
     <>
       <Header />
@@ -26,57 +41,31 @@ const Blogs = () => {
               </p>
             </div>
             <div className="row">
-              <div className="col-md-4">
-                <div className="card shadow border-0">
-                  <div className="card-img-top">
-                    <img src={BlogImg} className="w-100" />
-                  </div>
-                  <div className="card-body p-5">
-                    <div>
-                      <a href="#" className="title">
-                        Dummy blog title
-                      </a>
+              {articles &&
+                articles.map((article) => {
+                  return (
+                    <div className="col-md-4" key={article.id}>
+                      <div className="card shadow border-0">
+                        <div className="card-img-top">
+                          <img
+                            src={`${fileUrl}uploads/articles/small/${article.image}`}
+                            className="w-100"
+                          />
+                        </div>
+                        <div className="card-body p-5">
+                          <div>
+                            <a href="#" className="title">
+                              {article.title}
+                            </a>
+                          </div>
+                          <a href="#" className="btn blog-btn">
+                            Read More
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <a href="#" className="btn blog-btn">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card shadow border-0">
-                  <div className="card-img-top">
-                    <img src={BlogImg} className="w-100" />
-                  </div>
-                  <div className="card-body p-5">
-                    <div>
-                      <a href="#" className="title">
-                        Dummy blog title
-                      </a>
-                    </div>
-                    <a href="#" className="btn blog-btn">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card shadow border-0">
-                  <div className="card-img-top">
-                    <img src={BlogImg} className="w-100" />
-                  </div>
-                  <div className="card-body p-5">
-                    <div>
-                      <a href="#" className="title">
-                        Dummy blog title
-                      </a>
-                    </div>
-                    <a href="#" className="btn blog-btn">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
+                  );
+                })}
             </div>
           </div>
         </section>
