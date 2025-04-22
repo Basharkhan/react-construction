@@ -5,6 +5,7 @@ import { default as AboutNew } from "../common/About";
 import TeamImg1 from "../../assets/img/team1.jpg";
 import { FaLinkedin } from "react-icons/fa";
 import Hero from "../common/Hero";
+import ShowTestimonial from "../common/ShowTestimonial";
 
 const About = () => {
   return (
@@ -102,6 +103,9 @@ const About = () => {
             </div>
           </div>
         </section>
+
+        {/* testimonials */}
+        <ShowTestimonial />
       </main>
       <Footer />
     </>

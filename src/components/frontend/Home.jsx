@@ -5,16 +5,12 @@ import Footer from "../common/Footer";
 import Icon1 from "../../assets/img/icon-1.svg";
 import Icon2 from "../../assets/img/icon-2.svg";
 import Icon3 from "../../assets/img/icon-3.svg";
-import AvatarImg from "../../assets/img/author-2.jpg";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import { FaStar } from "react-icons/fa";
 import LatestServices from "../common/LatestServices";
-import "swiper/css";
-import "swiper/css/pagination";
+
 import About from "../common/About";
 import LatestProjects from "../common/LatestProjects";
 import LatestArticles from "../common/LatestArticles";
+import ShowTestimonial from "../common/ShowTestimonial";
 
 const Home = () => {
   return (
@@ -116,146 +112,7 @@ const Home = () => {
         <LatestProjects />
 
         {/* testimonial section */}
-        <section className="section-5">
-          <div className="container">
-            <div className="section-header text-center">
-              <span>testimonials</span>
-              <h2>What people say about us</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Recusandae illo, impedit nulla facere ipsa quae! Repudiandae
-                delectus voluptatibus quasi minima?
-              </p>
-            </div>
-            <Swiper
-              modules={[Pagination]}
-              spaceBetween={50}
-              slidesPerView={3}
-              pagination={{ clickable: true }}
-            >
-              <SwiperSlide>
-                <div className="card shadow border-0">
-                  <div className="card-body p-4">
-                    <div className="rating">
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                    </div>
-                    <div className="content py-4">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Fugit, ex. Debitis eveniet delectus sint asperiores
-                        rerum vitae, harum repellat a?
-                      </p>
-                    </div>
-                    <hr />
-                    <div className="meta">
-                      <div>
-                        <img src={AvatarImg} width={50} />
-                      </div>
-                      <div>
-                        <div className="name">John Doe</div>
-                        <div>CTO</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="card shadow border-0">
-                  <div className="card-body p-4">
-                    <div className="rating">
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                    </div>
-                    <div className="content py-4">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Fugit, ex. Debitis eveniet delectus sint asperiores
-                        rerum vitae, harum repellat a?
-                      </p>
-                    </div>
-                    <hr />
-                    <div className="meta">
-                      <div>
-                        <img src={AvatarImg} width={50} />
-                      </div>
-                      <div>
-                        <div className="name">John Doe</div>
-                        <div>CTO</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="card shadow border-0">
-                  <div className="card-body p-4">
-                    <div className="rating">
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                    </div>
-                    <div className="content py-4">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Fugit, ex. Debitis eveniet delectus sint asperiores
-                        rerum vitae, harum repellat a?
-                      </p>
-                    </div>
-                    <hr />
-                    <div className="meta">
-                      <div>
-                        <img src={AvatarImg} width={50} />
-                      </div>
-                      <div>
-                        <div className="name">John Doe</div>
-                        <div>CTO</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="card shadow border-0">
-                  <div className="card-body p-4">
-                    <div className="rating">
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                    </div>
-                    <div className="content py-4">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Fugit, ex. Debitis eveniet delectus sint asperiores
-                        rerum vitae, harum repellat a?
-                      </p>
-                    </div>
-                    <hr />
-                    <div className="meta">
-                      <div>
-                        <img src={AvatarImg} width={50} />
-                      </div>
-                      <div>
-                        <div className="name">John Doe</div>
-                        <div>CTO</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          </div>
-        </section>
+        <ShowTestimonial />
 
         {/* blog section */}
         <LatestArticles />
