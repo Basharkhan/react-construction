@@ -27,6 +27,10 @@ import { default as ShowTestimonials } from "./components/backend/testimonials/S
 import { default as CreateTestimonials } from "./components/backend/testimonials/Create";
 import { default as EditTestimonials } from "./components/backend/testimonials/Edit";
 
+import { default as ShowMember } from "./components/backend/members/Show";
+import { default as CreateMember } from "./components/backend/members/Create";
+import { default as EditMember } from "./components/backend/members/Edit";
+
 function App() {
   return (
     <>
@@ -48,6 +52,7 @@ function App() {
               </RequiredAuth>
             }
           />
+
           <Route
             path="/admin/services"
             element={
@@ -137,6 +142,7 @@ function App() {
               </RequiredAuth>
             }
           />
+
           <Route
             path="/admin/testimonials/create"
             element={
@@ -145,11 +151,39 @@ function App() {
               </RequiredAuth>
             }
           />
+
           <Route
             path="/admin/testimonials/edit/:id"
             element={
               <RequiredAuth>
                 <EditTestimonials />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/members"
+            element={
+              <RequiredAuth>
+                <ShowMember />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/members/create"
+            element={
+              <RequiredAuth>
+                <CreateMember />
+              </RequiredAuth>
+            }
+          />
+
+          <Route
+            path="/admin/members/edit/:id"
+            element={
+              <RequiredAuth>
+                <EditMember />
               </RequiredAuth>
             }
           />
