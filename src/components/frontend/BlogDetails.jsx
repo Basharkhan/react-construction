@@ -10,7 +10,7 @@ const BlogDetails = () => {
   const [articles, setArticles] = useState([]);
   const params = useParams();
 
-  const fetchService = async () => {
+  const fetchArticle = async () => {
     const response = await fetch(`${apiUrl}get-article/${params.id}`, {
       method: "GET",
     });
@@ -24,8 +24,8 @@ const BlogDetails = () => {
     }
   };
 
-  const fetchServices = async () => {
-    const response = await fetch(`${apiUrl}get-articles`, {
+  const fetchLatestArticles = async () => {
+    const response = await fetch(`${apiUrl}get-latest-articles`, {
       method: "GET",
     });
 
@@ -39,8 +39,8 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    fetchService();
-    fetchServices();
+    fetchArticle();
+    fetchLatestArticles();
   }, [params.id]);
 
   return (
@@ -51,37 +51,49 @@ const BlogDetails = () => {
         title={article.title}
         text=""
       />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-3">
-            <div className="card">
-              <div className="card-header">Featured</div>
-              <ul className="list-group list-group-flush">
-                {articles &&
-                  articles.map((article) => {
-                    return (
-                      <li key={article.id} className="list-group-item">
-                        <Link to={`/article/${article.id}`}>
-                          {article.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-              </ul>
+      <section className="py-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-8">
+              <h2>{article.title}</h2>
+              <div className="pb-3">
+                by <strong>{article.author}</strong> on {article.created_at}
+              </div>
+              <div className="pe-md-5 pb-3">
+                <img
+                  src={`${fileUrl}uploads/articles/large/${article.image}`}
+                  className="w-100"
+                />
+              </div>
+              <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
             </div>
-          </div>
-          <div className="col-md-9">
-            <div>
-              <img
-                src={`${fileUrl}uploads/articles/large/${article.image}`}
-                className="w-100"
-              />
+            <div className="col-md-4">
+              <div className="card shadow border-0">
+                <div className="card-body p-4">
+                  <h3 className="mt-2 mb-3">Latest Blogs</h3>
+                  {articles &&
+                    articles.map((article) => {
+                      return (
+                        <div className="d-flex" key={article.id}>
+                          <div className="pe-3 pb-2">
+                            <img
+                              src={`${fileUrl}uploads/articles/small/${article.image}`}
+                              className="article-thumbnail"
+                            />
+                          </div>
+                          <Link to={`/article/${article.id}`}>
+                            {article.title}
+                          </Link>
+                          <hr />
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
             </div>
-            <h3>{article.title}</h3>
-            <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
           </div>
         </div>
-      </div>
+      </section>
       <Footer />
     </>
   );

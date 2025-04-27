@@ -4,7 +4,6 @@ import Footer from "../common/Footer";
 import { Link, useParams } from "react-router-dom";
 import { apiUrl, fileUrl } from "../common/http";
 import Hero from "../common/Hero";
-import ShowTestimonial from "../common/ShowTestimonial";
 
 const ServiceDetails = () => {
   const [service, setService] = useState([]);
@@ -52,42 +51,39 @@ const ServiceDetails = () => {
         title={service.title}
         text=""
       />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-3">
-            <div className="card">
-              <div className="card-header">Featured</div>
-              <ul className="list-group list-group-flush">
-                {services &&
-                  services.map((service) => {
-                    return (
-                      <li key={service.id} className="list-group-item">
-                        <Link to={`/service/${service.id}`}>
-                          {service.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-              </ul>
+      <section className="py-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-3">
+              <div className="card">
+                <div className="card-header">Featured</div>
+                <ul className="list-group list-group-flush">
+                  {services &&
+                    services.map((service) => {
+                      return (
+                        <li key={service.id} className="list-group-item">
+                          <Link to={`/service/${service.id}`}>
+                            {service.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+            </div>
+            <div className="col-md-9">
+              <div>
+                <img
+                  src={`${fileUrl}uploads/services/large/${service.image}`}
+                  className="w-100"
+                />
+              </div>
+              <h3>{service.title}</h3>
+              <div dangerouslySetInnerHTML={{ __html: service.content }}></div>
             </div>
           </div>
-          <div className="col-md-9">
-            <div>
-              <img
-                src={`${fileUrl}uploads/services/large/${service.image}`}
-                className="w-100"
-              />
-            </div>
-            <h3>{service.title}</h3>
-            <div dangerouslySetInnerHTML={{ __html: service.content }}></div>
-          </div>
         </div>
-        <div className="row">
-          <div className="col-md-12">
-            <ShowTestimonial />
-          </div>
-        </div>
-      </div>
+      </section>
       <Footer />
     </>
   );

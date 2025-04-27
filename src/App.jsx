@@ -32,6 +32,7 @@ import { default as CreateMember } from "./components/backend/members/Create";
 import { default as EditMember } from "./components/backend/members/Edit";
 import ServiceDetails from "./components/frontend/ServiceDetails";
 import BlogDetails from "./components/frontend/BlogDetails";
+import ProjectDetails from "./components/frontend/ProjectDetails";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/admin/login" element={<Login />} />
           <Route path="/service/:id" element={<ServiceDetails />} />
           <Route path="/article/:id" element={<BlogDetails />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
 
           <Route
             path="/admin/dashboard"

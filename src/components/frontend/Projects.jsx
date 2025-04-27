@@ -3,6 +3,7 @@ import Header from "../common/Header";
 import Footer from "../common/Footer";
 import Hero from "../common/Hero";
 import { apiUrl, fileUrl } from "../common/http";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -59,9 +60,12 @@ const Projects = () => {
                           <div className="service-content">
                             {project.short_desc}
                           </div>
-                          <a href="#" className="btn btn-primary">
+                          <Link
+                            to={`/project/${project.id}`}
+                            className="btn btn-primary"
+                          >
                             Read More
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
