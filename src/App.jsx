@@ -30,6 +30,8 @@ import { default as EditTestimonials } from "./components/backend/testimonials/E
 import { default as ShowMember } from "./components/backend/members/Show";
 import { default as CreateMember } from "./components/backend/members/Create";
 import { default as EditMember } from "./components/backend/members/Edit";
+import ServiceDetails from "./components/frontend/ServiceDetails";
+import BlogDetails from "./components/frontend/BlogDetails";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="/service/:id" element={<ServiceDetails />} />
+          <Route path="/article/:id" element={<BlogDetails />} />
 
           <Route
             path="/admin/dashboard"

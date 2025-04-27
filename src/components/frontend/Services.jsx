@@ -4,6 +4,7 @@ import Footer from "../common/Footer";
 import Hero from "../common/Hero";
 import ServiceImage1 from "../../assets/img/construction1.jpg";
 import { apiUrl, fileUrl } from "../common/http";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -60,9 +61,12 @@ const Services = () => {
                           <div className="service-content">
                             {service.short_desc}
                           </div>
-                          <a href="#" className="btn btn-primary">
+                          <Link
+                            to={`/service/${service.id}`}
+                            className="btn btn-primary"
+                          >
                             Read More
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

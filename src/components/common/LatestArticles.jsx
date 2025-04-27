@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BlogImg from "../../assets/img/construction2.jpg";
 import { apiUrl, fileUrl } from "./http";
+import { Link } from "react-router-dom";
 
 const LatestArticles = () => {
   const [articles, setArticles] = useState([]);
@@ -49,9 +50,12 @@ const LatestArticles = () => {
                             {article.title}
                           </a>
                         </div>
-                        <a href="#" className="btn blog-btn">
+                        <Link
+                          to={`/article/${article.id}`}
+                          className="btn blog-btn"
+                        >
                           Read More
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

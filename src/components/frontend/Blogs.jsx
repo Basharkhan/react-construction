@@ -3,6 +3,7 @@ import Header from "../common/Header";
 import Footer from "../common/Footer";
 import Hero from "../common/Hero";
 import { apiUrl, fileUrl } from "../common/http";
+import { Link } from "react-router-dom";
 
 const Blogs = () => {
   const [articles, setArticles] = useState([]);
@@ -58,9 +59,12 @@ const Blogs = () => {
                               {article.title}
                             </a>
                           </div>
-                          <a href="#" className="btn blog-btn">
+                          <Link
+                            to={`/article/${article.id}`}
+                            className="btn blog-btn"
+                          >
                             Read More
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
