@@ -2,8 +2,38 @@ import React from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import Hero from "../common/Hero";
+import { useForm } from "react-hook-form";
+import { apiUrl } from "../common/http";
+import { toast } from "react-toastify";
 
 const ContactUs = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const res = await fetch(apiUrl + "contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await res.json();
+
+    if (result.status == true) {
+      toast.success(result.message);
+      reset();
+    } else {
+      toast.error(result.message);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -56,7 +86,7 @@ const ContactUs = () => {
               <div className="col-md-9">
                 <div className="card shadow border-0">
                   <div className="card-body">
-                    <form action="#">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="row">
                         <div className="col-md-6 mb-3">
                           <label htmlFor="name" className="form-label">
@@ -64,10 +94,20 @@ const ContactUs = () => {
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${
+                              errors.name && "is-invalid"
+                            }`}
                             id="name"
                             placeholder="John Doe"
+                            {...register("name", {
+                              required: "The name field is required",
+                            })}
                           />
+                          {errors.name && (
+                            <p className="invalid-feedback">
+                              {errors.name.message}
+                            </p>
+                          )}
                         </div>
                         <div className="col-md-6 mb-3">
                           <label htmlFor="email" className="form-label">
@@ -75,10 +115,20 @@ const ContactUs = () => {
                           </label>
                           <input
                             type="email"
-                            className="form-control"
+                            className={`form-control ${
+                              errors.email && "is-invalid"
+                            }`}
                             id="email"
                             placeholder="john@example.com"
+                            {...register("email", {
+                              required: "The email field is required",
+                            })}
                           />
+                          {errors.email && (
+                            <p className="invalid-feedback">
+                              {errors.email.message}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="row">
@@ -91,6 +141,7 @@ const ContactUs = () => {
                             className="form-control"
                             id="phone"
                             placeholder="(000-555-000)"
+                            {...register("phone")}
                           />
                         </div>
                         <div className="col-md-6 mb-3">
@@ -102,6 +153,7 @@ const ContactUs = () => {
                             className="form-control"
                             id="subject"
                             placeholder="Greetings"
+                            {...register("subject")}
                           />
                         </div>
                       </div>
@@ -111,14 +163,26 @@ const ContactUs = () => {
                             Message
                           </label>
                           <textarea
-                            className="form-control"
+                            className={`form-control ${
+                              errors.message && "is-invalid"
+                            }`}
                             id="message"
                             rows="6"
+                            {...register("message", {
+                              required: "The message field is required",
+                            })}
                           ></textarea>
+                          {errors.message && (
+                            <p className="invalid-feedback">
+                              {errors.message.message}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div>
-                        <button className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">
+                          Submit
+                        </button>
                       </div>
                     </form>
                   </div>
